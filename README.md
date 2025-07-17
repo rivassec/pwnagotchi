@@ -36,7 +36,8 @@ No high or medium severity issues were found.
    enabled = true
    phones = [
        { name = "PhoneA", mac = "00:11:22:33:44:55", ip = "192.168.44.45", type = "android" },
-       { name = "PhoneB", mac = "AA:BB:CC:DD:EE:FF", ip = "192.168.44.146", type = "android" }
+       { name = "PhoneB", mac = "AA:BB:CC:DD:EE:FF", ip = "192.168.44.146", type = "android" },
+       { name = "PhoneC", mac = "AA:BB:CC:00:11:22", ip = "172.20.10.6", type = "ios" }
    ]
 
    main.custom_plugins = "/usr/local/share/pwnagotchi/custom-plugins/"
