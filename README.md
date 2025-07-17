@@ -55,6 +55,15 @@ The plugin shows the connection status at the top center of the screen:
 - `B:???` — Connected but phone not recognized
 - `!` — Configuration or runtime error
 
+
+## Example Output on Pwnagotchi Screen
+
+The plugin updates the top-right of the Pwnagotchi UI to reflect the currently connected Bluetooth tethering device. In the screenshot below, `BT B: Apple` indicates that the device is using the second configured phone for Bluetooth tethering.
+
+![BT Tether UI Example](./plugins/bt-tether-multi.png)
+
+This makes it easy to visually confirm which phone is currently providing WAN connectivity.
+
 ## Notes
 
 - Requires `nmcli` for connection management
