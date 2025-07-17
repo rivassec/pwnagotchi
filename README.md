@@ -15,9 +15,9 @@ This is a custom Pwnagotchi plugin for Bluetooth tethering with multiple fallbac
 This plugin was scanned with Bandit to detect common Python security issues. Only low-severity subprocess usage warnings (B404, B603, B607) were present and are explicitly excluded via the .bandit.yaml configuration file.
 To re-run the scan:
     
-    ```bash
-    bandit -c .bandit.yaml plugins/bt-tether-multi.py
-    ```
+   ```bash
+   bandit -c .bandit.yaml plugins/bt-tether-multi.py
+   ```
     
 No high or medium severity issues were found.
 
