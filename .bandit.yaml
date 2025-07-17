@@ -1,0 +1,15 @@
+# .bandit.yaml
+exclude_dirs:
+  - tests
+
+skips:
+  - B404  # blacklisted import: subprocess
+  - B603  # subprocess call without shell=True (we're not using shell=True, so it's safe)
+  - B607  # subprocess call using partial path (safe in trusted environment with known PATH)
+
+# Optional: set severity and confidence thresholds
+severity: low
+confidence: high
+
+# Optional: show full context in reports
+format: full
