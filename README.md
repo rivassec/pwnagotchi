@@ -18,6 +18,7 @@ To re-run the scan:
     ```bash
     bandit -c .bandit.yaml plugins/bt-tether-multi.py
     ```
+    
 No high or medium severity issues were found.
 
 ## Installation
