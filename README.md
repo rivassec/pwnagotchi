@@ -15,9 +15,10 @@ This is a custom Pwnagotchi plugin for Bluetooth tethering with multiple fallbac
 This plugin was scanned with Bandit to detect common Python security issues. Only low-severity subprocess usage warnings (B404, B603, B607) were present and are explicitly excluded via the .bandit.yaml configuration file.
 To re-run the scan:
     
-    ```bash
-    bandit -c .bandit.yaml plugins/bt-tether-multi.py
-    ```
+   ```bash
+   bandit -c .bandit.yaml plugins/bt-tether-multi.py
+   ```
+    
 No high or medium severity issues were found.
 
 ## Installation
@@ -35,7 +36,8 @@ No high or medium severity issues were found.
    enabled = true
    phones = [
        { name = "PhoneA", mac = "00:11:22:33:44:55", ip = "192.168.44.45", type = "android" },
-       { name = "PhoneB", mac = "AA:BB:CC:DD:EE:FF", ip = "192.168.44.146", type = "android" }
+       { name = "PhoneB", mac = "AA:BB:CC:DD:EE:FF", ip = "192.168.44.146", type = "android" },
+       { name = "PhoneC", mac = "AA:BB:CC:00:11:22", ip = "172.20.10.6", type = "ios" }
    ]
 
    main.custom_plugins = "/usr/local/share/pwnagotchi/custom-plugins/"
@@ -52,6 +54,15 @@ The plugin shows the connection status at the top center of the screen:
 - `X` — Disconnected
 - `B:???` — Connected but phone not recognized
 - `!` — Configuration or runtime error
+
+
+## Example Output on Pwnagotchi Screen
+
+The plugin updates the top-right of the Pwnagotchi UI to reflect the currently connected Bluetooth tethering device. In the screenshot below, `BT B: Apple` indicates that the device is using the second configured phone for Bluetooth tethering.
+
+![BT Tether UI Example](./plugins/bt-tether-multi.png)
+
+This makes it easy to visually confirm which phone is currently providing WAN connectivity.
 
 ## Notes
 
