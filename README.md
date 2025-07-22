@@ -5,21 +5,23 @@ This is a custom Pwnagotchi plugin for Bluetooth tethering with multiple fallbac
 ## Features
 
 - Rotates through multiple configured phones when internet is unavailable
-- Pings both `8.8.8.8` and `1.1.1.1` to confirm WAN access
+- Verifies WAN access via curl to https://www.google.com with timeout
 - Prioritizes phones based on the order in the configuration
 - Prevents rapid looping with retry delay
 - Displays current connection status in the UI
 
 ## Security Audit
 
-This plugin was scanned with Bandit to detect common Python security issues. Only low-severity subprocess usage warnings (B404, B603, B607) were present and are explicitly excluded via the .bandit.yaml configuration file.
-To re-run the scan:
-    
-   ```bash
-   bandit -c .bandit.yaml plugins/bt-tether-multi.py
-   ```
-    
-No high or medium severity issues were found.
+This plugin has been scanned with [Bandit](https://github.com/PyCQA/bandit) for Python security issues and passes with **0 high, medium, or low severity findings**.
+
+- Avoids all subprocess injection vectors by resolving full binary paths using `shutil.which()`
+- Does **not** use `shell=True`
+- All subprocess commands are passed as argument lists
+
+To run Bandit:
+```bash
+bandit -r bt_tether_multi.py
+```
 
 ## Installation
 
@@ -55,19 +57,19 @@ The plugin shows the connection status at the top center of the screen:
 - `B:???` — Connected but phone not recognized
 - `!` — Configuration or runtime error
 
-
 ## Example Output on Pwnagotchi Screen
 
-The plugin updates the top-right of the Pwnagotchi UI to reflect the currently connected Bluetooth tethering device. In the screenshot below, `BT B: Apple` indicates that the device is using the second configured phone for Bluetooth tethering.
+The plugin updates the top center of the Pwnagotchi UI to reflect the currently connected Bluetooth tethering device.
 
-![BT Tether UI Example](./plugins/bt-tether-multi.png)
+Example:
+`BT B: Apple` indicates that the device is using the second configured phone for Bluetooth tethering.
 
-This makes it easy to visually confirm which phone is currently providing WAN connectivity.
+![BT Tether UI Example](./src/bt-tether-multi.png)
 
 ## Notes
 
 - Requires `nmcli` for connection management
-- WAN is considered "up" if either `8.8.8.8` or `1.1.1.1` responds to a single ping
+- WAN is considered "up" if curl to `https://www.google.com` succeeds with a 3s timeout
 - Retry delay is enforced to reduce battery and system churn (default: 120 seconds)
 
 ## License
@@ -77,3 +79,4 @@ GPLv3
 ## Author
 
 Plugin by [rivassec](https://github.com/rivassec)
+
