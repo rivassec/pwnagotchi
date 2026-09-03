@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bandit:
+    name: bandit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install bandit
+        run: pip install bandit
+
+      - name: Run bandit
+        # Uses the repo's existing .bandit.yaml (skips B404/B603/B607, severity=low, confidence=high).
+        run: bandit -c .bandit.yaml -r src
+
+  py-compile:
+    name: py-compile smoke
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Compile Python sources
+        # bt-tether-multi.pwn is a packaged ZIP archive, not Python source, so it is not compiled.
+        run: |
+          files=$(find src -name '*.py')
+          echo "Compiling:"
+          echo "$files"
+          python -m py_compile $files
